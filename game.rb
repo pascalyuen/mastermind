@@ -13,18 +13,12 @@ class Game
     display_intro
 
     input = gets.chomp
-    if input == '1'
-       new_game
-    else
-      return
-    end
+    new_game if input == '1'
   end
 
   def new_game
     puts enter_guess
-    save_input
-    # computer = Computer.new
-    # puts cross_check(secret_pattern)
-    # puts computer.secret_pattern
+    computer = Computer.new
+    cross_check(computer.secret_pattern)
   end
 end

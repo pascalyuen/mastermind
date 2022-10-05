@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'display'
-require_relative 'computer'
 
 # game logic for mastermind
 module GameLogic
@@ -16,19 +15,20 @@ module GameLogic
       input = gets.chomp
     end
 
-    guess = input.split('').map(&:to_i)
-    p guess
-    p AVAILABLE_NUMBERS
+    input.split('').map(&:to_i)
   end
+
+  private
 
   def generate_random
     AVAILABLE_NUMBERS.sample(4)
   end
 
-  private
-
   def cross_check(sequence)
-    # return correct_guess if guess.sort == secret_pattern
-    sequence
+    if save_input == sequence
+      correct_guess
+    else
+      puts 'Wrong guess'
+    end
   end
 end
