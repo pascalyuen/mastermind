@@ -7,8 +7,9 @@ module Display
   def display_intro
     puts "Welcome to the game of Mastermind\n\n"
     puts '*** How to play ***'
-    puts "The available numbers are #{'1'.red} #{'2'.green} #{'3'.blue} #{'4'.yellow} "\
-          "#{'5'.magenta} #{'6'.cyan} #{'7'.light_yellow} #{'8'.white}\n\n"
+    puts "The available numbers are #{'1'.red} #{'2'.green} "\
+          "#{'3'.blue} #{'4'.yellow} #{'5'.magenta} #{'6'.cyan}\n\n"
+    puts ''
     puts '--- Press 1 to start ---'
   end
 
@@ -21,6 +22,7 @@ module Display
   end
 
   def correct_guess
-    'You guessed it right!'
+    'You guessed it right! Congratulations'
   end
 end
+

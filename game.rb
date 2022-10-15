@@ -17,8 +17,10 @@ class Game
   end
 
   def new_game
+    # puts '⚫ ⚪'
     puts enter_guess
     computer = Computer.new
-    cross_check(computer.secret_pattern)
+    # cross_check(computer.secret_pattern)
+    cross_check([5, 4, 1, 6])
   end
 end
