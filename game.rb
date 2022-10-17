@@ -13,7 +13,7 @@ class Game
     display_intro
 
     input = gets.chomp
-    new_game if input == '1'
+    new_game if input == '2'
   end
 
   def new_game
