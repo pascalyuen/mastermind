@@ -17,10 +17,14 @@ class Game
   end
 
   def new_game
-    # puts '⚫ ⚪'
-    puts enter_guess
     computer = Computer.new
     # cross_check(computer.secret_pattern)
-    cross_check([5, 4, 1, 6])
+    catch(:cross_check) do
+      (1..12).each do |i|
+        puts "Round #{i}. #{enter_guess}"
+        cross_check([5, 4, 1, 6], i)
+        puts "i = #{i}"
+      end
+    end
   end
 end

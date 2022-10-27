@@ -7,6 +7,7 @@ module GameLogic
   include Display
 
   AVAILABLE_NUMBERS = Array(1..6)
+  NUMBER_OF_ROUNDS = 12
   @@both_correct_index = []
 
   def save_input
@@ -38,18 +39,20 @@ module GameLogic
     AVAILABLE_NUMBERS.sample(4)
   end
 
-  def cross_check(sequence)
+  def cross_check(sequence, index)
     guess = save_input
-    # colorized = colorize_input(guess)
-    # colorized.each {|n| print n }
-    # puts ''
-    # All pegs in the correct color and correct position
+    # If pegs in the correct color and correct position, break out of the loop
     if guess == sequence
       puts correct_guess
+      throw :cross_check
     else
+      # If it's the end of the 12 round, break out of the loop
+      if index == NUMBER_OF_ROUNDS
+        puts game_over
+        throw :cross_check
+      end
       # Print feedback
       feedback(guess, sequence)
-      # Check how many pegs are in the correct color but is NOT in the correct position
     end
   end
 
@@ -63,7 +66,6 @@ module GameLogic
     count_both_correct(codebreaker, secret)
     count_correct_color(codebreaker, secret)
     puts ''
-    p @@both_correct_index
   end
 
   # Check how many pegs are the correct color and correct position
