@@ -46,7 +46,7 @@ module GameLogic
       puts correct_guess
       throw :cross_check
     else
-      # If it's the end of the 12 round, break out of the loop
+      # If it's the end of the 12th round, break out of the loop
       if index == NUMBER_OF_ROUNDS
         puts game_over
         throw :cross_check

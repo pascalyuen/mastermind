@@ -23,7 +23,6 @@ class Game
       (1..12).each do |i|
         puts "Round #{i}. #{enter_guess}"
         cross_check([5, 4, 1, 6], i)
-        puts "i = #{i}"
       end
     end
   end
