@@ -71,6 +71,7 @@ module GameLogic
   # Check how many pegs are the correct color and correct position
   def count_both_correct(codebreaker, secret)
     both_correct = 0
+    @@both_correct_index = []
     codebreaker.each_with_index do |element, i|
       if element == secret[i]
         both_correct += 1
@@ -83,15 +84,10 @@ module GameLogic
   # Check how many pegs are the correct color and incorrect position
   def count_correct_color(codebreaker, secret)
     correct_color = 0
-    guessed = []
     codebreaker.each_with_index do |element, i|
       next if @@both_correct_index.include?(i)
-      next if guessed.include?(element)
 
-      if secret.include?(element)
-        correct_color += 1
-        guessed.push(element)
-      end
+      correct_color += 1 if secret.include?(element)
     end
     correct_color.times { print '⚪' }
   end
