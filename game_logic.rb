@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'display'
+require 'pry'
 
 # game logic for mastermind
 module GameLogic
@@ -45,12 +46,12 @@ module GameLogic
     if guess == sequence
       puts correct_guess
       throw :cross_check
+    # If it's the end of the 12th round, break out of the loop
+    elsif index == NUMBER_OF_ROUNDS
+      puts game_over
+      puts "The code is #{sequence}."
+      throw :cross_check
     else
-      # If it's the end of the 12th round, break out of the loop
-      if index == NUMBER_OF_ROUNDS
-        puts game_over
-        throw :cross_check
-      end
       # Print feedback
       feedback(guess, sequence)
     end
@@ -71,7 +72,6 @@ module GameLogic
   # Check how many pegs are the correct color and correct position
   def count_both_correct(codebreaker, secret)
     both_correct = 0
-    @@both_correct_index = []
     codebreaker.each_with_index do |element, i|
       if element == secret[i]
         both_correct += 1
@@ -90,5 +90,36 @@ module GameLogic
       correct_color += 1 if secret.include?(element)
     end
     correct_color.times { print '⚪' }
+    @@both_correct_index.clear
   end
 end
+
+# Tesintg
+
+# Answer
+# 1564
+
+# Only one correct color and position, other 3 all wrong
+# 1222
+
+# Two correct
+# 1522
+
+# Three correct
+# 1562
+
+# All correct
+# 1564
+
+# One correct color and position, other 3 correct color but wrong position
+# 1645
+
+# Two correct color and position, other 2 correct color but wrong position
+# 1546
+
+# Three correct color and position, last one correct color and wrong position
+# 1561
+
+# Other cases
+# 5555
+# 0000
