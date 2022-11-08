@@ -17,12 +17,14 @@ class Game
     new_game_codebreaker if input == '2'
   end
 
+  # Player chooses to be the codemaker
   def new_game_codemaker
-    # sample
+    player_code = save_input
+    algorithm(player_code)
   end
 
+  # Player chooses to be the codebreaker
   def new_game_codebreaker
-    # cross_check(computer.secret_pattern)
     catch(:cross_check) do
       (1..12).each do |i|
         puts "Round #{i}. #{enter_guess}"

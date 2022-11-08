@@ -17,6 +17,10 @@ module Display
     puts '--- Press 2 to be the codebreaker ---'
   end
 
+  def enter_code
+    'Enter a 4-digit code'
+  end
+
   def enter_guess
     'Enter a 4-digit number'
   end

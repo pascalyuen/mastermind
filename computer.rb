@@ -11,4 +11,8 @@ class Computer
   def initialize
     @secret_pattern = generate_random
   end
+
+  def algorithm(code)
+    # Algorithm for breaking the player-made code
+  end
 end
