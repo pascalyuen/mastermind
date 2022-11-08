@@ -26,8 +26,7 @@ class Game
     catch(:cross_check) do
       (1..12).each do |i|
         puts "Round #{i}. #{enter_guess}"
-        # cross_check(generate_random, i)
-        cross_check([1, 5, 6, 4], i)
+        cross_check(generate_random, i)
       end
     end
   end
