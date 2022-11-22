@@ -44,7 +44,7 @@ module GameLogic
     save_input
   end
 
-  def cross_check(guess = [1, 1, 2, 2], answer = [0, 0, 0, 0], index = 1)
+  def cross_check(guess = [], answer = [], index = 1)
     # If pegs in the correct color and correct position, break out of the loop
     if guess == answer
       puts correct_guess
@@ -62,22 +62,22 @@ module GameLogic
   end
 
   # Print the guess and black/white pegs as feedback
-  def feedback(codebreaker, secret)
+  def feedback(guess, secret)
     # Print the guess
-    colorized = colorize_input(codebreaker)
+    colorized = colorize_input(guess)
     colorized.each { |n| print n }
     4.times { print ' ' }
     # Print the feedback
-    count_both_correct(codebreaker, secret)
-    count_correct_color(codebreaker, secret)
+    count_both_correct(guess, secret)
+    count_correct_color(guess, secret)
     puts ''
   end
 
   # Check how many pegs are the correct color and correct position
-  def count_both_correct(codebreaker, secret)
+  def count_both_correct(guess, answer)
     both_correct = 0
-    codebreaker.each_with_index do |element, i|
-      if element == secret[i]
+    guess.each_with_index do |element, i|
+      if element == answer[i]
         both_correct += 1
         @@both_correct_index.push(i)
       end
@@ -86,14 +86,15 @@ module GameLogic
   end
 
   # Check how many pegs are the correct color and incorrect position
-  def count_correct_color(codebreaker, secret)
+  def count_correct_color(guess, answer)
     correct_color = 0
-    codebreaker.each_with_index do |element, i|
+    guess.each_with_index do |element, i|
       next if @@both_correct_index.include?(i)
 
-      correct_color += 1 if secret.include?(element)
+      correct_color += 1 if answer.include?(element)
     end
     correct_color.times { print '⚪' }
+    binding.pry
     @@both_correct_index.clear
   end
 
