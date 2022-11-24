@@ -94,13 +94,13 @@ module GameLogic
       correct_color += 1 if answer.include?(element)
     end
     correct_color.times { print '⚪' }
-    binding.pry
+    # binding.pry
     @@both_correct_index.clear
   end
 
-  def computer_guessing_algo(code)
+  def computer_guessing_algo(code, index)
     computer_guess = generate_random
-    cross_check(computer_guess, code)
+    cross_check(computer_guess, code, index)
     computer_guess
   end
 end

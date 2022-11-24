@@ -23,7 +23,7 @@ class Game
     player_code = save_input
     catch(:cross_check) do
       (1..12).each do |i|
-        puts "Round #{i}. The computer guesses #{computer_guessing_algo(player_code)}"
+        puts "Round #{i}. The computer guesses #{computer_guessing_algo(player_code, i)}"
       end
     end
   end
