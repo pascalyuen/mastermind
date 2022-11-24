@@ -58,6 +58,7 @@ module GameLogic
     else
       # Print feedback
       feedback(guess, answer)
+      puts "The answer is #{answer}"
     end
   end
 
@@ -99,8 +100,18 @@ module GameLogic
   end
 
   def computer_guessing_algo(code, index)
-    computer_guess = generate_random
     cross_check(computer_guess, code, index)
+    computer_guess
+  end
+
+  def computer_guess
+    computer_guess = [] unless defined?(computer_guess)
+    # Conditional: update with correct guess
+    if @@both_correct_index.empty?
+      computer_guess = generate_random
+    else
+
+    end
     computer_guess
   end
 end

@@ -30,10 +30,11 @@ class Game
 
   # Player chooses to be the codebreaker
   def new_game_codebreaker
+    generated_answer = generate_random
     catch(:cross_check) do
       (1..12).each do |i|
         puts "Round #{i}. #{enter_guess}"
-        cross_check(player_guess, generate_random, i)
+        cross_check(player_guess, generated_answer, i)
       end
     end
   end

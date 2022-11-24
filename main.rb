@@ -6,4 +6,5 @@ game = Game.new
 game.game_intro
 
 # Next step
-# sth wrong with the cross_check logic, need to fix
+# new feature - codemaker: log guesses for computer guesses that are both correct and keep them in the next round
+
