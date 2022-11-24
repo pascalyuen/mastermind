@@ -47,18 +47,15 @@ module GameLogic
   def cross_check(guess = [], answer = [], index = 1)
     # If pegs in the correct color and correct position, break out of the loop
     if guess == answer
-      puts correct_guess
-      puts "The code is #{answer}."
+      puts correct_guess(answer)
       throw :cross_check
     # If it's the end of the 12th round, break out of the loop
     elsif index == NUMBER_OF_ROUNDS
-      puts game_over
-      puts "The code is #{answer}."
+      puts wrong_guess(answer)
       throw :cross_check
     else
       # Print feedback
       feedback(guess, answer)
-      puts "The answer is #{answer}"
     end
   end
 

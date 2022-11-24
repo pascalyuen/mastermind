@@ -29,12 +29,12 @@ module Display
     'Invalid input'
   end
 
-  def correct_guess
-    'You guessed it right! Congratulations'
+  def correct_guess(answer)
+    "You guessed it right! Congratulations. The code is #{answer}."
   end
 
-  def game_over
-    'Wrong guess. Game over!'
+  def wrong_guess(answer)
+    "Wrong guess. Game over! The code is #{answer}."
   end
 end
 
