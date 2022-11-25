@@ -2,7 +2,6 @@
 
 require_relative 'display'
 require_relative 'game_logic'
-require_relative 'computer'
 
 # Class for starting and playing the game
 class Game
