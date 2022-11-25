@@ -19,11 +19,14 @@ class Game
 
   # Player chooses to be the codemaker
   def new_game_codemaker
-    puts "#{enter_guess} as the code"
+    puts enter_guess
     player_code = save_input
     catch(:cross_check) do
       (1..12).each do |i|
-        puts "Round #{i}. The computer guesses #{computer_guessing_algo(player_code, i)}"
+        computer_guess = computer_random
+        puts "Round #{i}. The computer guesses #{computer_guess}"
+        computer_guessing_algo(computer_guess, player_code, i)
+        puts ''
       end
     end
   end

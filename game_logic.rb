@@ -63,7 +63,7 @@ module GameLogic
   def feedback(guess, secret)
     # Print the guess
     colorized = colorize_input(guess)
-    colorized.each { |n| print n }
+    colorized.each { |e| print e }
     4.times { print ' ' }
     # Print the feedback
     count_both_correct(guess, secret)
@@ -92,23 +92,22 @@ module GameLogic
       correct_color += 1 if answer.include?(element)
     end
     correct_color.times { print '⚪' }
-    # binding.pry
     @@both_correct_index.clear
   end
 
-  def computer_guessing_algo(code, index)
-    cross_check(computer_guess, code, index)
-    computer_guess
+  def computer_guessing_algo(guess, code, index)
+    cross_check(guess, code, index)
+    guess.clear
   end
 
-  def computer_guess
-    computer_guess = [] unless defined?(computer_guess)
+  def computer_random
+    guess = [] unless defined?(guess)
     # Conditional: update with correct guess
-    if @@both_correct_index.empty?
-      computer_guess = generate_random
-    else
-
-    end
-    computer_guess
+    # if @@both_correct_index.empty?
+    guess = generate_random
+    # else
+    #   # Loop over each element and check which one is already a correct match
+    # end
+    # computer_guess
   end
 end

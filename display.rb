@@ -22,7 +22,7 @@ module Display
   end
 
   def enter_guess
-    'Enter a 4-digit number'
+    'Enter a 4-digit number as the code'
   end
 
   def invalid_input
@@ -37,4 +37,3 @@ module Display
     "Wrong guess. Game over! The code is #{answer}."
   end
 end
-
