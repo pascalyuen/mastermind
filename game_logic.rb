@@ -36,23 +36,31 @@ module GameLogic
 
   private
 
-  def generate_random
-    AVAILABLE_NUMBERS.sample(4)
+  def generate_random(n)
+    AVAILABLE_NUMBERS.sample(n)
   end
 
   def player_guess
     save_input
   end
 
-  def cross_check(guess = [], answer = [], index = 1)
-    # If pegs in the correct color and correct position, break out of the loop
+  def round_codemaker(answer, round_number)
+    guess = [] unless defined?(guess)
+    guess = computer_random(guess, answer)
+    puts "Round #{round_number}. The computer guesses #{guess}"
+    cross_check(guess, answer)
+    puts ''
+  end
+
+  def round_codebreaker(answer, round_number)
+    puts "Round #{round_number}. #{enter_guess}"
+    cross_check(player_guess, answer)
+  end
+
+  def cross_check(guess, answer)
     if guess == answer
       puts correct_guess(answer)
-      throw :cross_check
-    # If it's the end of the 12th round, break out of the loop
-    elsif index == NUMBER_OF_ROUNDS
-      puts wrong_guess(answer)
-      throw :cross_check
+      true
     else
       # Print feedback
       feedback(guess, answer)
@@ -95,19 +103,18 @@ module GameLogic
     @@both_correct_index.clear
   end
 
-  def computer_guessing_algo(guess, code, index)
-    cross_check(guess, code, index)
-    guess.clear
+  def computer_random(sequence, answer)
+    if @@both_correct_index.empty? || sequence.empty?
+      generate_random(4)
+    else
+      keep_correct_match(sequence, answer)
+    end
   end
 
-  def computer_random
-    guess = [] unless defined?(guess)
-    # Conditional: update with correct guess
-    # if @@both_correct_index.empty?
-    guess = generate_random
-    # else
-    #   # Loop over each element and check which one is already a correct match
-    # end
-    # computer_guess
+  def keep_correct_match(sequence, answer)
+    sequence.each_with_index do |e, i|
+      sequence[i] = generate_random(1) unless e == answer[i]
+    end
+    sequence
   end
 end

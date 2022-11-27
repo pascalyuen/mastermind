@@ -6,4 +6,4 @@ game = Game.new
 game.game_intro
 
 # Next step
-# new feature - codemaker: log guesses for computer guesses that are both correct and keep them in the next round
+# bug (computer) - a correct guess is not kept in the next round

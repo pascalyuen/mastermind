@@ -12,32 +12,36 @@ class Game
     display_intro
 
     input = gets.chomp
-    new_game_codemaker if input == '1'
-    new_game_codebreaker if input == '2'
+    new_game(input) if %w[1 2].include?(input)
+  end
+
+  def new_game(input)
+    codemaker if input == '1'
+    codebreaker if input == '2'
   end
 
   # Player chooses to be the codemaker
-  def new_game_codemaker
+  def codemaker
     puts enter_guess
-    player_code = save_input
-    catch(:cross_check) do
-      (1..12).each do |i|
-        computer_guess = computer_random
-        puts "Round #{i}. The computer guesses #{computer_guess}"
-        computer_guessing_algo(computer_guess, player_code, i)
-        puts ''
-      end
+    round = 1
+    player_answer = save_input
+    while round <= 12
+      round_codemaker(player_answer, round)
+      round += 1
     end
   end
 
   # Player chooses to be the codebreaker
-  def new_game_codebreaker
-    generated_answer = generate_random
-    catch(:cross_check) do
-      (1..12).each do |i|
-        puts "Round #{i}. #{enter_guess}"
-        cross_check(player_guess, generated_answer, i)
-      end
+  def codebreaker
+    round = 1
+    # answer = generate_random(4)
+    answer = [1, 2, 3, 4]
+    while round <= 12
+      break if round_codebreaker(answer, round)
+
+      round += 1
     end
+    # End of 12th round
+    puts wrong_guess(answer) if round > 12
   end
 end
