@@ -6,4 +6,5 @@ game = Game.new
 game.game_intro
 
 # Next step
-# bug (computer) - a correct guess is not kept in the next round
+# If the computer has guessed the right color but the wrong position,
+# its next guess will need to include that color somewhere

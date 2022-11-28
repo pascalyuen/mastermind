@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'display'
-require 'pry'
+require 'pry-byebug'
 
 # game logic for mastermind
 module GameLogic
@@ -9,7 +9,8 @@ module GameLogic
 
   AVAILABLE_NUMBERS = Array(1..6)
   NUMBER_OF_ROUNDS = 12
-  @@both_correct_index = []
+  @@both_correct_arr = []
+  @@tried = Array.new(4) { Array.new }
 
   def save_input
     input = gets.chomp
@@ -36,20 +37,17 @@ module GameLogic
 
   private
 
-  def generate_random(n)
-    AVAILABLE_NUMBERS.sample(n)
+  def generate_random(num)
+    num == 1 ? AVAILABLE_NUMBERS.sample(1)[0] : AVAILABLE_NUMBERS.sample(num)
   end
 
   def player_guess
     save_input
   end
 
-  def round_codemaker(answer, round_number)
-    guess = [] unless defined?(guess)
-    guess = computer_random(guess, answer)
+  def round_codemaker(guess, answer, round_number)
     puts "Round #{round_number}. The computer guesses #{guess}"
     cross_check(guess, answer)
-    puts ''
   end
 
   def round_codebreaker(answer, round_number)
@@ -82,10 +80,11 @@ module GameLogic
   # Check how many pegs are the correct color and correct position
   def count_both_correct(guess, answer)
     both_correct = 0
-    guess.each_with_index do |element, i|
-      if element == answer[i]
+    @@both_correct_arr.clear
+    guess.each_with_index do |e, i|
+      if e == answer[i]
         both_correct += 1
-        @@both_correct_index.push(i)
+        @@both_correct_arr.push(e)
       end
     end
     both_correct.times { print '⚫' }
@@ -93,27 +92,36 @@ module GameLogic
 
   # Check how many pegs are the correct color and incorrect position
   def count_correct_color(guess, answer)
-    correct_color = 0
-    guess.each_with_index do |element, i|
-      next if @@both_correct_index.include?(i)
+    correct_color_arr = []
+    guess.each do |e|
+      next if @@both_correct_arr.include?(e)
+      next if correct_color_arr.include?(e)
 
-      correct_color += 1 if answer.include?(element)
+      correct_color_arr.push(e) if answer.include?(e)
     end
-    correct_color.times { print '⚪' }
-    @@both_correct_index.clear
+    correct_color_arr.count.times { print '⚪' }
   end
 
   def computer_random(sequence, answer)
-    if @@both_correct_index.empty? || sequence.empty?
+    if sequence.empty?
       generate_random(4)
     else
+      switch_correct_color(sequence, answer)
       keep_correct_match(sequence, answer)
     end
   end
 
+  def switch_correct_color(sequence, answer)
+    
+  end
+
   def keep_correct_match(sequence, answer)
     sequence.each_with_index do |e, i|
-      sequence[i] = generate_random(1) unless e == answer[i]
+      next if e == answer[i]
+
+      @@tried[i].push(e)
+      puts "@@tried: #{@@tried}"
+      sequence[i] = (AVAILABLE_NUMBERS - @@tried[i]).sample
     end
     sequence
   end
