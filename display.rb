@@ -7,8 +7,7 @@ module Display
   def display_intro
     puts "Welcome to the game of Mastermind\n\n"
     puts '*** How to play ***'
-    puts "The available numbers are #{'1'.colorize(:red)} #{'2'.colorize(:green)} "\
-          "#{'3'.colorize(:blue)} #{'4'.colorize(:yellow)} #{'5'.colorize(:magenta)} #{'6'.colorize(:cyan)}"
+    puts 'The available numbers are 1, 2, 3, 4, 5, and 6'
     puts 'The codebreaker has 12 turns to guess the secret code.'
     puts 'Feedback is provided after each turn.'
     puts '⚫ indicates the existence of a code peg placed in both correct color and position.'
