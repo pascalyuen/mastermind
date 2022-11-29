@@ -26,12 +26,12 @@ module GameLogic
   def colorize_input(array)
     array.map do |n|
       case n
-      when 1 then '1'.red
-      when 2 then '2'.green
-      when 3 then '3'.blue
-      when 4 then '4'.yellow
-      when 5 then '5'.magenta
-      when 6 then '6'.cyan
+      when 1 then '1'.colorize(:red)
+      when 2 then '2'.colorize(:green)
+      when 3 then '3'.colorize(:blue)
+      when 4 then '4'.colorize(:yellow)
+      when 5 then '5'.colorize(:magenta)
+      when 6 then '6'.colorize(:cyan)
       end
     end
   end
