@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'display'
-require 'pry-byebug'
 
 # game logic for mastermind
 module GameLogic
