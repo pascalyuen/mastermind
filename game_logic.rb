@@ -6,11 +6,11 @@ require_relative 'display'
 module GameLogic
   include Display
 
+  attr_reader :both_correct_arr
+  attr_accessor :computer_memory
+
   AVAILABLE_NUMBERS = Array(1..6)
   NUMBER_OF_ROUNDS = 12
-  @@both_correct_arr = []
-  @@computer_memory = []
-  @@tried = Array.new(4) { [] }
 
   def save_input
     input = gets.chomp
@@ -55,6 +55,7 @@ module GameLogic
 
   # Print the guess and black/white pegs as feedback
   def feedback(guess, secret)
+    @computer_memory = []
     # Print the guess
     print guess
     4.times { print ' ' }
@@ -67,11 +68,11 @@ module GameLogic
   # Check how many pegs are the correct color and correct position
   def count_both_correct(guess, answer)
     both_correct = 0
-    @@both_correct_arr.clear
+    @both_correct_arr = []
     guess.each_with_index do |e, i|
       if e == answer[i]
         both_correct += 1
-        @@both_correct_arr.push(e)
+        @both_correct_arr.push(e)
       end
     end
     both_correct.times { print '⚫' }
@@ -81,13 +82,13 @@ module GameLogic
   def count_correct_color(guess, answer)
     correct_color_arr = []
     guess.each do |e|
-      next if @@both_correct_arr.include?(e)
+      next if @both_correct_arr.include?(e)
       next if correct_color_arr.include?(e)
 
       correct_color_arr.push(e) if answer.include?(e)
     end
-    correct_color_arr -= @@both_correct_arr
-    @@computer_memory = @@computer_memory.concat(correct_color_arr).uniq
+    correct_color_arr -= @both_correct_arr
+    @computer_memory = @computer_memory.concat(correct_color_arr).uniq
     correct_color_arr.count.times { print '⚪' }
     puts ''
   end
@@ -104,13 +105,13 @@ module GameLogic
     sequence.each_with_index do |e, i|
       next if e == answer[i]
 
-      @@tried[i].push(e)
-      combined = @@both_correct_arr.concat(@@computer_memory).uniq
-      # @@tried[i].sort.count >= combined.sort.count: no more correct color but wrong position pegs to try
-      sequence[i] = if @@computer_memory.empty? || @@tried[i].sort.count >= combined.sort.count
-                      (AVAILABLE_NUMBERS - @@tried[i]).sample
+      @tried[i].push(e)
+      combined = @both_correct_arr.concat(@computer_memory).uniq
+      # @tried[i].sort.count >= combined.sort.count: no more correct color but wrong position pegs to try
+      sequence[i] = if @computer_memory.empty? || @tried[i].sort.count >= combined.sort.count
+                      (AVAILABLE_NUMBERS - @tried[i]).sample
                     else
-                      (combined - @@tried[i]).sample
+                      (combined - @tried[i]).sample
                     end
     end
     sequence

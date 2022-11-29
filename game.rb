@@ -8,6 +8,8 @@ class Game
   include Display
   include GameLogic
 
+  attr_accessor :tried
+
   def game_intro
     display_intro
 
@@ -26,6 +28,7 @@ class Game
     puts enter_guess
     player_answer = save_input
     computer_guess = []
+    @tried = Array.new(4) { [] }
     while round <= 12
       computer_guess = computer_random(computer_guess, player_answer)
       break if round_codemaker(computer_guess, player_answer, round)
