@@ -10,7 +10,8 @@ module GameLogic
   AVAILABLE_NUMBERS = Array(1..6)
   NUMBER_OF_ROUNDS = 12
   @@both_correct_arr = []
-  @@tried = Array.new(4) { Array.new }
+  @@computer_memory = []
+  @@tried = Array.new(4) { [] }
 
   def save_input
     input = gets.chomp
@@ -99,6 +100,8 @@ module GameLogic
 
       correct_color_arr.push(e) if answer.include?(e)
     end
+    correct_color_arr -= @@both_correct_arr
+    @@computer_memory = @@computer_memory.concat(correct_color_arr).uniq
     correct_color_arr.count.times { print '⚪' }
   end
 
@@ -106,13 +109,8 @@ module GameLogic
     if sequence.empty?
       generate_random(4)
     else
-      switch_correct_color(sequence, answer)
       keep_correct_match(sequence, answer)
     end
-  end
-
-  def switch_correct_color(sequence, answer)
-    
   end
 
   def keep_correct_match(sequence, answer)
@@ -120,8 +118,13 @@ module GameLogic
       next if e == answer[i]
 
       @@tried[i].push(e)
-      puts "@@tried: #{@@tried}"
-      sequence[i] = (AVAILABLE_NUMBERS - @@tried[i]).sample
+      combined = @@both_correct_arr.concat(@@computer_memory).uniq
+      # @@tried[i].sort.count >= combined.sort.count: no more correct color but wrong position pegs to try
+      sequence[i] = if @@computer_memory.empty? || @@tried[i].sort.count >= combined.sort.count
+                      (AVAILABLE_NUMBERS - @@tried[i]).sample
+                    else
+                      (combined - @@tried[i]).sample
+                    end
     end
     sequence
   end
