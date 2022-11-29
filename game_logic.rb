@@ -33,6 +33,7 @@ module GameLogic
   end
 
   def round_codemaker(guess, answer, round_number)
+    puts '' if round_number == 1
     puts "Round #{round_number}. The computer guesses #{guess}"
     cross_check(guess, answer)
   end
@@ -88,6 +89,7 @@ module GameLogic
     correct_color_arr -= @@both_correct_arr
     @@computer_memory = @@computer_memory.concat(correct_color_arr).uniq
     correct_color_arr.count.times { print '⚪' }
+    puts ''
   end
 
   def computer_random(sequence, answer)

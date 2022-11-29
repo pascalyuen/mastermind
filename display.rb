@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'colorize'
-
 # Module for the display dialogues
 module Display
   def display_intro
@@ -29,7 +27,7 @@ module Display
   end
 
   def correct_guess(answer)
-    "You guessed it right! Congratulations. The code is #{answer}."
+    "\nYou guessed it right! Congratulations. The code is #{answer}."
   end
 
   def wrong_guess(answer)

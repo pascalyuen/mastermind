@@ -39,8 +39,7 @@ class Game
   # Player chooses to be the codebreaker
   def codebreaker
     round = 1
-    # computer_answer = generate_random(4)
-    computer_answer = [5, 6, 2, 4]
+    computer_answer = generate_random(4)
     while round <= 12
       break if round_codebreaker(computer_answer, round)
 
